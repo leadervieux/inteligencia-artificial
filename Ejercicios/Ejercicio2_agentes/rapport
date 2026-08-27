@@ -1,0 +1,7 @@
+Solo el agente basado en la utilidad supera el juego, con una puntuación de 952 en 32 pasos.
+El agente de reflejo simple carece de memoria sobre percepciones pasadas —por lo que nunca puede construir un mapa mental de seguridad—; su comportamiento es puramente reactivo y determinista, sin capacidad de deducción.
+El agente basado en modelos mantiene un modelo interno de las casillas seguras y peligrosas, pero aplica una política estrictamente prudente: se niega a entrar en cualquier casilla cuya seguridad no esté garantizada al 100%, incluso si el riesgo real es bajo, lo que lo condena a la inmovilidad ante una ambigüedad lógica insalvable.
+La puntuación de 952 (en lugar de 1000) del agente basado en la utilidad se explica por el coste de las acciones: 1000 - 32 (pasos) - otras posibles penalizaciones ≈ 952, lo cual es coherente con la fórmula de puntuación (+1000 por el oro, -1 por acción).
+Si la trampa se coloca cerca de la casilla de inicio, el agente tiene más probabilidades de perder, ya que queda bloqueado rápidamente sin haber conocido las otras casillas.
+
+En cuanto al desafío opcional, el agente basado en la utilidad, a diferencia del basado en objetivos, no incorpora una estrategia de neutralización preventiva del peligro. Ante una amenaza segura (un Wumpus detectado con certeza lógica), intenta avanzar sin disparar, lo que provoca sistemáticamente su muerte; esto ilustra las limitaciones de una arquitectura basada puramente en el cálculo de utilidad, sin planificación de acciones preparatorias.
