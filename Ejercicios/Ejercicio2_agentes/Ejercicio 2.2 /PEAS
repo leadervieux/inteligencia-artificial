@@ -1,0 +1,49 @@
+##Aplicaciones
+
+#Asistencia virtual de voz
+Performance: la voz puede responder a nuestras preguntas con precisión, comprensión de la voz de al menos un 90%
+Environment: el agente solo percibe la voz del humano, depende de la acción manteniendo el contexto de la conversación, dinámico, continuo y los agentes interactúan con los humanos.
+Actuators: el agente realiza búsquedas para responder por voz y en determinados momentos envía una orden a un dispositivo (como poner música o llamar a un amigo)
+Sensors: micrófono, volumen sonoro
+
+#Robot aspirador doméstico
+Performance: mantener el lugar limpio eliminando el polvo, limpia como mínimo el 85% de la superficie elegida
+Environment: interior de una vivienda, no determinista, interactúa con el humano.
+Actuators: aspirar la habitación, desplazarse, esquivar los objetos que estorban, envío de alertas
+Sensors: objetos en su camino, limpieza del suelo
+
+#Sistema de recomendación de streaming
+Performance: las recomendaciones corresponden a las expectativas del usuario en un 70%
+Environment: puede utilizarse en todos los dispositivos electrónicos, se adapta a los hábitos del momento del usuario, parcialmente observable
+Actuators: propuesta de nuevo contenido de streaming
+Sensors: lista de las reproducciones anteriores realizadas por el usuario
+
+#Vehículo autónomo en ciudad
+Performance: desplazar a una persona respetando las normas de circulación, sin golpear a peatones/objetos
+Environment: en una ciudad, se adapta al entorno, y también a la dirección a seguir, no observable
+Actuators: avanzar, detenerse, girar, ajustar su velocidad
+Sensors: detector de presencia, GPS, calidad de las carreteras, cámara integrada
+
+#Agente de trading algorítmico en bolsa
+Performance: predicciones bursátiles cercanas a la realidad en un 70%, minimizar las pérdidas
+Environment: en los dispositivos electrónicos, aplicaciones bursátiles, no determinista, cambia en función de las empresas y de las compras/ventas
+Actuators: comprar o vender acciones
+Sensors: cifras de una empresa, mercado de compra/venta
+
+#Sistema de diagnóstico médico asistido por IA
+Performance: informar al paciente sobre su enfermedad
+Environment: en un centro médico o en casa desde su teléfono/ordenador, no determinista, depende de cada paciente y cada causa
+Actuators: dar consejos para curarse, tranquilizar al paciente
+Sensors: antecedentes médicos, fragilidad, edad, historial médico, contexto
+
+#Dron de inspección de infraestructura
+Performance: verificar las instalaciones y velar por la seguridad
+Environment: el agente no percibe el estado completo del entorno, hay incertidumbre y las acciones son independientes entre sí
+Actuators: desplazarse, analizar mediante una cámara
+Sensors: calidad de los materiales, su posicionamiento, resistencia mecánica
+
+#Agente jugador de ajedrez
+Performance: adaptarse al nivel del adversario para ofrecer una partida interesante, tasa de victoria del 80%
+Environment: incertidumbre respecto al juego del adversario, agente dinámico, discreto, observable
+Actuators: mover sus piezas, capturar las piezas adversarias, adaptar su juego
+Sensors: ubicación de las piezas, número de jugadas
