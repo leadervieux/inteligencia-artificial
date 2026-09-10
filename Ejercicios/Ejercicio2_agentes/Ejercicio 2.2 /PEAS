@@ -2,7 +2,7 @@
 
 #Asistencia virtual de voz
 Performance: la voz puede responder a nuestras preguntas con precisión, comprensión de la voz de al menos un 90%
-Environment: el agente solo percibe la voz del humano, depende de la acción manteniendo el contexto de la conversación, dinámico, continuo y los agentes interactúan con los humanos.
+Environment: el agente solo percibe la voz del humano, secuencial, dinámico, continuo y multiagente, parcialmente observable.
 Actuators: el agente realiza búsquedas para responder por voz y en determinados momentos envía una orden a un dispositivo (como poner música o llamar a un amigo)
 Sensors: micrófono, volumen sonoro
 
@@ -20,7 +20,7 @@ Sensors: lista de las reproducciones anteriores realizadas por el usuario
 
 #Vehículo autónomo en ciudad
 Performance: desplazar a una persona respetando las normas de circulación, sin golpear a peatones/objetos
-Environment: en una ciudad, se adapta al entorno, y también a la dirección a seguir, no observable
+Environment: en una ciudad, se adapta al entorno, y también a la dirección a seguir, parcialmente observable
 Actuators: avanzar, detenerse, girar, ajustar su velocidad
 Sensors: detector de presencia, GPS, calidad de las carreteras, cámara integrada
 
