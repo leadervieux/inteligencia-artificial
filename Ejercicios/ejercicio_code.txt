@@ -1,0 +1,142 @@
+import random
+import matplotlib.pyplot as plt
+
+
+# ======================= Environnement =======================
+ROWS, COLS = 4, 12
+START = (3, 0)
+GOAL = (3, 11)
+CLIFF = [(3, c) for c in range(1, 11)]
+ACTIONS = ['N', 'E', 'S', 'W']  # ordre fixe pour les égalités
+DELTA = {'N': (-1, 0), 'E': (0, 1), 'S': (1, 0), 'W': (0, -1)}
+
+
+def step(state, action):
+    r, c = state
+    dr, dc = DELTA[action]
+    nr, nc = r + dr, c + dc
+
+    if not (0 <= nr < ROWS and 0 <= nc < COLS):
+        return state, -1, False
+
+    next_state = (nr, nc)
+
+    if next_state == GOAL:
+        return next_state, -1, True
+
+    if next_state in CLIFF:
+        return START, -100, False
+
+    return next_state, -1, False
+
+
+# ======================= Q-learning =======================
+def empty_q():
+    Q = {}
+    for r in range(ROWS):
+        for c in range(COLS):
+            state = (r, c)
+            if state != GOAL:
+                Q[state] = {a: 0.0 for a in ACTIONS}
+    return Q
+
+
+def argmax_action(Q, state):
+    best_action = ACTIONS[0]
+    best_value = Q[state]['N']
+    for i in ACTIONS[1:]:
+        if Q[state][i] > best_value:
+            best_action = i
+            best_value = Q[state][i]
+    return best_action
+
+
+def epsilon_greedy(Q, state, epsilon, rng):
+    if rng.random() < epsilon:
+        return rng.choice(ACTIONS)
+    else:
+        return argmax_action(Q, state)
+
+
+def update(Q, s, a, r, s_next, done, alpha, gamma):
+    if done:
+        target = r
+    else:
+        target = r + gamma * max(Q[s_next].values())
+    error = target - Q[s][a]
+    Q[s][a] = Q[s][a] + alpha * error
+
+
+def train(episodes, alpha, gamma, epsilon, max_steps, seed):
+    rng = random.Random(seed)
+    Q = empty_q()
+    returns = []
+    for ep in range(episodes):
+        state = START
+        total_return = 0
+        for t in range(max_steps):
+            a = epsilon_greedy(Q, state, epsilon, rng)
+            s_next, r, done = step(state, a)
+            update(Q, state, a, r, s_next, done, alpha, gamma)
+            total_return += r
+            state = s_next
+            if done:
+                break
+        returns.append(total_return)
+    return Q, returns
+
+
+def evaluate(Q, max_steps=200):
+    state = START
+    path = [state]
+    total_return = 0
+    for t in range(max_steps):
+        a = argmax_action(Q, state)
+        s_next, r, done = step(state, a)
+        total_return += r
+        path.append(s_next)
+        state = s_next
+        if done:
+            break
+    return path, total_return
+
+
+def moyenne_mobile(data, window=10):
+    return [sum(data[max(0, i-window+1):i+1]) / len(data[max(0, i-window+1):i+1])
+            for i in range(len(data))]
+
+
+if __name__ == "__main__":
+
+    print("=== Verification transitions ===")
+    print(step((3, 0), 'N'))
+    print(step((3, 0), 'E'))
+    print(step((2, 11), 'S'))
+
+    # --- Entraînement ---
+    SEED = 2026
+    Q, returns = train(episodes=500, alpha=0.5, gamma=1, epsilon=0.1,
+                        max_steps=200, seed=SEED)
+
+    # --- Évaluation de la politique greedy ---
+    path, total_return = evaluate(Q)
+
+    print("\n=== Résultat ===")
+    print(f"Seed used : {SEED}")
+    print(f"Path found : {path}")
+    print(f"Number of step : {len(path) - 1}")
+    print(f"Return greedy : {total_return}")
+
+    # --- Courbe d'apprentissage ---
+    mm = moyenne_mobile(returns, 10)
+    print("\n=== Some dot on a curve (Mobile meaning on 10 episodes) ===")
+    for i in range(0, 500, 50):
+        print(f"Episode {i}: {mm[i]:.1f}")
+
+    plt.plot(returns, alpha=0.3, label="brut")
+    plt.plot(mm, label="mobile meaning (10)")
+    plt.xlabel("episode")
+    plt.ylabel("return")
+    plt.legend()
+    plt.savefig("courbe_apprentissage.png")
+    print("\nCurve download in courbe_apprentissage.png")
